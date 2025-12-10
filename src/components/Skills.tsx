@@ -30,6 +30,8 @@ import {
   SiExpress,
   SiIntellijidea,
   SiJavascript,
+  SiFlutter,
+  SiReact,
 } from "react-icons/si";
 
 const skillIcons: Record<string, React.ReactNode> = {
@@ -56,6 +58,12 @@ const skillIcons: Record<string, React.ReactNode> = {
   Python: <FaPython color="#3776AB" size={22} className="inline-block mr-1" />,
   JavaScript: (
     <SiJavascript color="#F7DF1E" size={22} className="inline-block mr-1" />
+  ),
+  Flutter: (
+    <SiFlutter color="#02569B" size={22} className="inline-block mr-1" />
+  ),
+  "React Native": (
+    <SiReact color="#61DAFB" size={22} className="inline-block mr-1" />
   ),
   "VS Code": (
     <img
@@ -98,6 +106,11 @@ export default function Skills() {
       icon: <FaDatabase size={28} className="text-green-400" />,
       title: "Backend Development",
       skills: ["Node.js", "ExpressJS", "MongoDB", "MySQL"],
+    },
+    {
+      icon: <FaMobileAlt size={28} className="text-cyan-400" />,
+      title: "Mobile App Development",
+      skills: ["Flutter", "React Native"],
     },
     {
       icon: <FaPalette size={28} className="text-pink-400" />,
