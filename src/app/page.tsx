@@ -20,6 +20,9 @@ const Education = dynamic(() => import("../components/Education"), {
 const Projects = dynamic(() => import("../components/Projects"), {
   ssr: false,
 });
+const BlogPosts = dynamic(() => import("../components/BlogPosts"), {
+  ssr: false,
+});
 const Contact = dynamic(() => import("../components/Contact"), { ssr: false });
 const Footer = dynamic(() => import("../components/Footer"), { ssr: false });
 
@@ -42,6 +45,11 @@ export default function LandingPage() {
       {/* Projects Section */}
       <section id="projects" className="scroll-mt-20">
         <Projects />
+      </section>
+
+      {/* Blog Posts Section */}
+      <section id="blog" className="scroll-mt-20">
+        <BlogPosts />
       </section>
 
       {/* Contact Section */}
