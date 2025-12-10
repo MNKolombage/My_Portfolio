@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { FaMedium, FaExternalLinkAlt } from "react-icons/fa";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BlogPost {
   title: string;
@@ -14,6 +15,21 @@ interface BlogPost {
 }
 
 export default function BlogPosts() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      scrollRef.current.scrollTo({
+        left:
+          direction === "left"
+            ? scrollLeft - clientWidth
+            : scrollLeft + clientWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const posts: BlogPost[] = [
     {
       title: "Understanding JWT Authentication with a Mini Node.js API",
@@ -59,8 +75,22 @@ export default function BlogPosts() {
           Read my articles on Medium
         </motion.p>
 
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+        <div className="relative flex justify-center">
+          {/* Left Arrow */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-indigo-600/80 hover:bg-indigo-700 text-white p-2 rounded-full shadow-lg hidden md:block"
+            aria-label="Scroll Left"
+          >
+            <ChevronLeft size={28} />
+          </button>
+
+          {/* Scrollable Cards */}
+          <div
+            ref={scrollRef}
+            className="flex gap-8 overflow-x-auto scrollbar-hide py-2 px-1"
+            style={{ scrollBehavior: "smooth" }}
+          >
             {posts.map((post, idx) => (
               <motion.a
                 key={idx}
@@ -71,7 +101,7 @@ export default function BlogPosts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.2 }}
                 viewport={{ once: true }}
-                className="group bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-2"
+                className="min-w-[320px] max-w-sm flex-shrink-0 group bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-indigo-500 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-2"
               >
                 <div className="relative w-full h-48 overflow-hidden bg-gray-700">
                   <img
@@ -112,6 +142,15 @@ export default function BlogPosts() {
               </motion.a>
             ))}
           </div>
+
+          {/* Right Arrow */}
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-indigo-600/80 hover:bg-indigo-700 text-white p-2 rounded-full shadow-lg hidden md:block"
+            aria-label="Scroll Right"
+          >
+            <ChevronRight size={28} />
+          </button>
         </div>
 
         <motion.div
